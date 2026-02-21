@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Box, Text } from 'ink';
 import BigText from 'ink-big-text';
-import Table from './components/Table.js';
+import Table from './components/table/Table.js';
 
 export default function App() {
 	const columns = useMemo(() => [

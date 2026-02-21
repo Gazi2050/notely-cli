@@ -1,14 +1,19 @@
 import React from 'react';
-import {Text} from 'ink';
+import { Box, Text } from 'ink';
 
-type Props = {
-	name: string | undefined;
-};
+export default function App() {
+	const banner = `
+ _   _       _        ____ _     ___ 
+| \\ | | ___ | |_ ___ / ___| |   |_ _|
+|  \\| |/ _ \\| __/ _ \\ |   | |    | | 
+| |\\  | (_) | ||  __/ |___| |___ | | 
+|_| \\_|\\___/ \\__\\___|\\____|_____|___|
+`;
 
-export default function App({name = 'Stranger'}: Props) {
 	return (
-		<Text>
-			Hello, <Text color="green">{name}</Text>
-		</Text>
+		<Box flexDirection="column">
+			<Text color="cyan">{banner}</Text>
+			<Text>Welcome to Note CLI ✍️</Text>
+		</Box>
 	);
 }

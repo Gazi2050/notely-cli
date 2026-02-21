@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Text } from 'ink';
+import BigText from 'ink-big-text';
+import Table from './components/Table.js';
 
 export default function App() {
-	const banner = `
- _   _       _        ____ _     ___ 
-| \\ | | ___ | |_ ___ / ___| |   |_ _|
-|  \\| |/ _ \\| __/ _ \\ |   | |    | | 
-| |\\  | (_) | ||  __/ |___| |___ | | 
-|_| \\_|\\___/ \\__\\___|\\____|_____|___|
-`;
+	const columns = useMemo(() => [
+		{ head: 'Command', index: 0, width: 12 },
+		{ head: 'Description', index: 1, width: 30 },
+	], []);
+
+	const data = [
+		['-c', 'Create a new note'],
+		['-r', 'Read/List notes'],
+		['-u', 'Update an existing note'],
+		['-d', 'Delete a note'],
+	];
 
 	return (
 		<Box flexDirection="column">
-			<Text color="cyan">{banner}</Text>
+			<BigText text="Note CLI" />
 			<Text>Welcome to Note CLI ✍️</Text>
+			<Box marginTop={1}>
+				<Table data={data} columns={columns} />
+			</Box>
 		</Box>
 	);
 }

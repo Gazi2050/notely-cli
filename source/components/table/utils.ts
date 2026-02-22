@@ -10,7 +10,6 @@ export const generateTableString = (
     const colWidths: number[] = [];
     const dataIndexes: number[] = [];
 
-    // Determine which columns to show based on threshold
     columns.forEach(col => {
         if (!col.threshold || width > col.threshold) {
             activeCols.push(col);
@@ -19,23 +18,19 @@ export const generateTableString = (
         }
     });
 
-    // Calculate total requested width and number of borders
     const borderCount = activeCols.length + 1;
     const requestedWidth = colWidths.reduce((a, b) => a + b, 0);
-    const totalMinimumWidth = borderCount + activeCols.length * 5; // Absolute minimum: borders + 5 chars per col
+    const totalMinimumWidth = borderCount + activeCols.length * 5;
 
-    // Effective width for columns after borders
     const colBudget = Math.max(totalMinimumWidth - borderCount, width - borderCount);
 
     if (requestedWidth > colBudget) {
-        // Scale down proportionally
         const scale = colBudget / requestedWidth;
         for (let i = 0; i < colWidths.length; i++) {
             const currentWidth = colWidths[i] ?? 0;
             colWidths[i] = Math.max(5, Math.floor(currentWidth * scale));
         }
 
-        // After potential scaling, ensure the last column fills remaining budget space
         const currentUsedColWidth = colWidths.reduce((a, b) => a + b, 0);
         if (colWidths.length > 0) {
             const lastIdx = colWidths.length - 1;

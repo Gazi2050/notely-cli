@@ -8,7 +8,6 @@ export default function Table({ data, columns }: TableProps) {
     const width = stdout?.columns || 80;
 
     const tableString = useMemo(() => {
-        // Use width - 2 to provide a safety margin against terminal wrapping glitches
         const safeWidth = Math.max(40, width - 2);
         return generateTableString(safeWidth, data, columns);
     }, [width, data, columns]);

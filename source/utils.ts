@@ -3,14 +3,10 @@ import dayjs from 'dayjs';
 import { getDb } from './db/db.js';
 import { Note } from './types.js';
 
-// ─── Limits ────────────────────────────────────────────────────────────────
-
 export const LIMITS = {
     TITLE: 50,
     DESCRIPTION: 300,
 };
-
-// ─── Create ────────────────────────────────────────────────────────────────
 
 export const saveNote = async (title: string, content: string) => {
     const db = await getDb();
@@ -29,8 +25,6 @@ export const saveNote = async (title: string, content: string) => {
     return newNote;
 };
 
-// ─── Read ──────────────────────────────────────────────────────────────────
-
 export const fetchNotes = async (): Promise<Note[]> => {
     const db = await getDb();
     return db.data.notes;
@@ -39,8 +33,6 @@ export const fetchNotes = async (): Promise<Note[]> => {
 export const formatNoteDate = (date: string): string => {
     return dayjs(date).format('MMM D, YYYY h:mm A');
 };
-
-// ─── Update ────────────────────────────────────────────────────────────────
 
 export const findNoteById = async (id: string): Promise<Note | undefined> => {
     const db = await getDb();
@@ -60,8 +52,6 @@ export const updateNote = async (id: string, updates: Partial<Note>): Promise<vo
         await db.write();
     }
 };
-
-// ─── Delete ────────────────────────────────────────────────────────────────
 
 export const deleteNoteById = async (id: string): Promise<boolean> => {
     const db = await getDb();

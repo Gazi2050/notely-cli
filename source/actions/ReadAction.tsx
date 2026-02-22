@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Box, Text } from 'ink';
-import { Alert } from '@inkjs/ui';
-import Table from '../../components/table/Table.js';
-import { fetchNotes, formatNoteDate, findNoteById } from '../../utils.js';
-import { Note } from '../../types.js';
+import { Alert, Spinner } from '@inkjs/ui';
+import Table from '../components/table/Table.js';
+import { fetchNotes, formatNoteDate, findNoteById } from '../utils.js';
+import { Note } from '../types.js';
 
 interface ReadActionProps {
     id?: string;
@@ -55,7 +55,7 @@ export default function ReadAction({ id }: ReadActionProps) {
     if (loading) {
         return (
             <Box paddingY={1}>
-                <Text color="yellow">Loading...</Text>
+                <Spinner label="Loading notes..." />
             </Box>
         );
     }
@@ -71,29 +71,29 @@ export default function ReadAction({ id }: ReadActionProps) {
     if (id && selectedNote) {
         return (
             <Box flexDirection="column" paddingY={1}>
-                <Box borderStyle="round" borderColor="cyan" paddingX={1} flexDirection="column">
+                <Box borderStyle="round" borderColor="cyan" paddingX={1} marginBottom={1}>
+                    <Text bold color="cyan">✦ NOTE DETAIL</Text>
+                </Box>
+
+                <Box borderStyle="single" borderColor="gray" paddingX={2} paddingY={1} flexDirection="column">
                     <Box marginBottom={1}>
-                        <Text bold color="yellow">NOTE DETAILS</Text>
+                        <Text bold color="white">{selectedNote.title}</Text>
                     </Box>
-                    <Box flexDirection="column" gap={0}>
-                        <Box>
-                            <Text bold>ID: </Text>
-                            <Text>{selectedNote.id}</Text>
-                        </Box>
-                        <Box>
-                            <Text bold>Title: </Text>
-                            <Text>{selectedNote.title}</Text>
-                        </Box>
-                        <Box marginTop={1} marginBottom={1} flexDirection="column">
-                            <Text bold underline>Content:</Text>
-                            <Text>{selectedNote.content}</Text>
-                        </Box>
-                        <Box borderStyle="single" borderTop={true} borderBottom={false} borderLeft={false} borderRight={false} paddingTop={1}>
-                            <Text color="gray">Created: {formatNoteDate(selectedNote.createdAt)}</Text>
-                            {selectedNote.updatedAt && (
-                                <Text color="gray"> | Updated: {formatNoteDate(selectedNote.updatedAt)}</Text>
-                            )}
-                        </Box>
+
+                    <Text color="gray" dimColor>{'─'.repeat(40)}</Text>
+
+                    <Box marginTop={1} marginBottom={1}>
+                        <Text>{selectedNote.content}</Text>
+                    </Box>
+
+                    <Text color="gray" dimColor>{'─'.repeat(40)}</Text>
+
+                    <Box marginTop={1} flexDirection="column">
+                        <Text color="gray" dimColor>ID      {selectedNote.id}</Text>
+                        <Text color="gray" dimColor>Created {formatNoteDate(selectedNote.createdAt)}</Text>
+                        {selectedNote.updatedAt && (
+                            <Text color="gray" dimColor>Updated {formatNoteDate(selectedNote.updatedAt)}</Text>
+                        )}
                     </Box>
                 </Box>
             </Box>
@@ -102,20 +102,32 @@ export default function ReadAction({ id }: ReadActionProps) {
 
     if (notes.length === 0) {
         return (
-            <Box paddingY={1}>
-                <Text color="red">No notes found. Create one with `note-cli -c`!</Text>
+            <Box flexDirection="column" paddingY={1}>
+                <Box borderStyle="round" borderColor="cyan" paddingX={1} marginBottom={1}>
+                    <Text bold color="cyan">✦ NOTES</Text>
+                </Box>
+                <Box paddingX={1}>
+                    <Text color="gray">No notes yet. </Text>
+                    <Text bold color="green">note-cli -c</Text>
+                    <Text color="gray"> to create one.</Text>
+                </Box>
             </Box>
         );
     }
 
     return (
         <Box flexDirection="column" paddingY={1}>
-            <Box borderStyle="round" borderColor="green" paddingX={1} marginBottom={1}>
-                <Text bold>LIST OF NOTES</Text>
+            <Box borderStyle="round" borderColor="cyan" paddingX={1} marginBottom={1}>
+                <Text bold color="cyan">✦ NOTES</Text>
+                <Text color="gray" dimColor>  {notes.length} note{notes.length !== 1 ? 's' : ''}</Text>
             </Box>
+
             <Table columns={columns} data={rows} />
+
             <Box marginTop={1}>
-                <Text color="gray">Showing {notes.length} note(s)</Text>
+                <Text dimColor>Run </Text>
+                <Text bold dimColor>note-cli -r {'<id>'}</Text>
+                <Text dimColor> to view details</Text>
             </Box>
         </Box>
     );

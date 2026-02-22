@@ -4,7 +4,7 @@ import { render } from 'ink';
 import meow from 'meow';
 import App from './app.js';
 
-meow(
+const cli = meow(
 	`
 	Usage
 	  $ note-cli
@@ -21,7 +21,25 @@ meow(
 	`,
 	{
 		importMeta: import.meta,
+		flags: {
+			create: {
+				type: 'boolean',
+				alias: 'c'
+			},
+			update: {
+				type: 'boolean',
+				alias: 'u'
+			},
+			delete: {
+				type: 'boolean',
+				alias: 'd'
+			},
+			read: {
+				type: 'boolean',
+				alias: 'r'
+			}
+		}
 	},
 );
 
-render(<App />);
+render(<App flags={cli.flags} />);

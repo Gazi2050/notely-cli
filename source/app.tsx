@@ -2,8 +2,18 @@ import React, { useMemo } from 'react';
 import { Box, Text, useStdout } from 'ink';
 import BigText from 'ink-big-text';
 import Table from './components/table/Table.js';
+import CreateAction from './actions/create-action/CreateAction.js';
 
-export default function App() {
+interface AppProps {
+	flags: {
+		create?: boolean;
+		update?: boolean;
+		delete?: boolean;
+		read?: boolean;
+	};
+}
+
+export default function App({ flags }: AppProps) {
 	const { stdout } = useStdout();
 	const width = stdout?.columns || 80;
 
@@ -12,12 +22,16 @@ export default function App() {
 		{ head: 'Description', index: 1, width: 30 },
 	], []);
 
-	const data = [
+	const helpData = [
 		['-c', 'Create a new note'],
 		['-r', 'Read/List notes'],
 		['-u', 'Update an existing note'],
 		['-d', 'Delete a note'],
 	];
+
+	if (flags.create) {
+		return <CreateAction />;
+	}
 
 	return (
 		<Box flexDirection="column" paddingBottom={1}>
@@ -32,7 +46,7 @@ export default function App() {
 			)}
 			<Text>Welcome to Note CLI ✍️</Text>
 			<Box marginTop={1}>
-				<Table data={data} columns={columns} />
+				<Table data={helpData} columns={columns} />
 			</Box>
 		</Box>
 	);

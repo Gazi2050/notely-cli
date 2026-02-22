@@ -17,6 +17,7 @@
 		"dist"
 	],
 	"dependencies": {
+		"@inkjs/ui": "^2.0.0",
 		"cli-table3": "^0.6.5",
 		"ink": "^4.1.0",
 		"ink-big-text": "^2.0.0",

@@ -1,9 +1,11 @@
-import { Low } from 'lowdb';
-import { JSONFilePreset } from 'lowdb/node';
-import { Data } from '../types.js';
+import {type Low} from 'lowdb';
+// eslint-disable-next-line n/file-extension-in-import
+import {JSONFilePreset} from 'lowdb/node';
+import {type Data} from '../types.js';
 
-const defaultData: Data = { notes: [] };
+const defaultData: Data = {notes: []};
 
 export const getDb = async (): Promise<Low<Data>> => {
-    return await JSONFilePreset<Data>('db.json', defaultData);
+	// eslint-disable-next-line new-cap
+	return JSONFilePreset<Data>('db.json', defaultData);
 };

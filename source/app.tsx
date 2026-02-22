@@ -1,31 +1,34 @@
-import React, { useMemo } from 'react';
-import { Box, Text, useStdout } from 'ink';
+import React, {useMemo} from 'react';
+import {Box, Text, useStdout} from 'ink';
 import BigText from 'ink-big-text';
-import Table from './components/table/Table.js';
-import CreateAction from './actions/CreateAction.js';
-import ReadAction from './actions/ReadAction.js';
-import UpdateAction from './actions/UpdateAction.js';
-import DeleteAction from './actions/DeleteAction.js';
+import Table from './components/table/table.js';
+import CreateAction from './actions/create-action.js';
+import ReadAction from './actions/read-action.js';
+import UpdateAction from './actions/update-action.js';
+import DeleteAction from './actions/delete-action.js';
 
-interface AppProps {
-	flags: {
+type AppProps = {
+	readonly flags: {
 		create?: boolean;
 		update?: boolean;
 		delete?: boolean;
 		read?: boolean;
 	};
-	input: string[];
-}
+	readonly input: string[];
+};
 
-export default function App({ flags, input }: AppProps) {
-	const { stdout } = useStdout();
+export default function App({flags, input}: AppProps) {
+	const {stdout} = useStdout();
 	const width = stdout?.columns || 80;
 
-	const columns = useMemo(() => [
-		{ head: 'Flag', index: 0, width: 14 },
-		{ head: 'Shorthand', index: 1, width: 12 },
-		{ head: 'Description', index: 2, width: 30 },
-	], []);
+	const columns = useMemo(
+		() => [
+			{head: 'Flag', index: 0, width: 14},
+			{head: 'Shorthand', index: 1, width: 12},
+			{head: 'Description', index: 2, width: 30},
+		],
+		[],
+	);
 
 	const helpData = [
 		['--create', '-c', 'Create a new note'],
@@ -41,26 +44,29 @@ export default function App({ flags, input }: AppProps) {
 
 	return (
 		<Box flexDirection="column" paddingY={1}>
-			{/* Logo */}
 			{width > 80 ? (
 				<BigText text="Note CLI" />
 			) : (
 				<Box paddingY={1}>
-					<Text bold color="cyan">  ✦ NOTE CLI ✦  </Text>
+					<Text bold color="cyan">
+						{' '}
+						✦ NOTE CLI ✦{' '}
+					</Text>
 				</Box>
 			)}
 
-			{/* Tagline */}
 			<Box marginBottom={1}>
-				<Text color="cyan">Your minimal note-taking tool for the terminal.</Text>
+				<Text color="cyan">
+					Your minimal note-taking tool for the terminal.
+				</Text>
 			</Box>
 
-			{/* Divider */}
 			<Box marginBottom={1}>
-				<Text color="cyan" dimColor>{'─'.repeat(46)}</Text>
+				<Text dimColor color="cyan">
+					{'─'.repeat(46)}
+				</Text>
 			</Box>
 
-			{/* Help table */}
 			<Box>
 				<Table data={helpData} columns={columns} />
 			</Box>

@@ -1,6 +1,12 @@
 {
 	"name": "note-cli",
 	"version": "1.0.0",
+	"description": "Your minimal note-taking tool for the terminal.",
+	"author": "gazi2050",
+	"homepage": "https://packsmith.vercel.app",
+	"repository": {
+		"url": "https://github.com/Gazi2050/PackSmith"
+	},
 	"license": "MIT",
 	"bin": "dist/cli.js",
 	"type": "module",
@@ -11,6 +17,7 @@
 		"build": "tsc",
 		"dev": "tsc --watch",
 		"cli": "node --no-warnings --loader ts-node/esm source/cli.tsx",
+		"format": "prettier --write .",
 		"test": "prettier --check . && xo && ava"
 	},
 	"files": [
@@ -54,7 +61,8 @@
 		"extends": "xo-react",
 		"prettier": true,
 		"rules": {
-			"react/prop-types": "off"
+			"react/prop-types": "off",
+			"unicorn/expiring-todo-comments": "off"
 		}
 	},
 	"prettier": "@vdemedes/prettier-config"

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import React from 'react';
-import { render } from 'ink';
+import {render} from 'ink';
 import meow from 'meow';
 import App from './app.js';
 
@@ -24,21 +24,21 @@ const cli = meow(
 		flags: {
 			create: {
 				type: 'boolean',
-				alias: 'c'
+				alias: 'c',
 			},
 			update: {
 				type: 'boolean',
-				alias: 'u'
+				alias: 'u',
 			},
 			delete: {
 				type: 'boolean',
-				alias: 'd'
+				alias: 'd',
 			},
 			read: {
 				type: 'boolean',
-				alias: 'r'
-			}
-		}
+				alias: 'r',
+			},
+		},
 	},
 );
 

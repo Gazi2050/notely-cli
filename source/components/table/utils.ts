@@ -1,5 +1,5 @@
 import Table3 from 'cli-table3';
-import { ColumnConfig } from './types.js';
+import { ColumnConfig } from '../../types.js';
 
 export const generateTableString = (
     width: number,
@@ -34,16 +34,16 @@ export const generateTableString = (
             const currentWidth = colWidths[i] ?? 0;
             colWidths[i] = Math.max(5, Math.floor(currentWidth * scale));
         }
-    }
 
-    // After potential scaling, ensure the last column fills remaining space
-    const currentUsedColWidth = colWidths.reduce((a, b) => a + b, 0);
-    if (colWidths.length > 0) {
-        const lastIdx = colWidths.length - 1;
-        const remaining = colBudget - currentUsedColWidth;
-        if (remaining > 0) {
-            const lastColWidth = colWidths[lastIdx] ?? 0;
-            colWidths[lastIdx] = lastColWidth + remaining;
+        // After potential scaling, ensure the last column fills remaining budget space
+        const currentUsedColWidth = colWidths.reduce((a, b) => a + b, 0);
+        if (colWidths.length > 0) {
+            const lastIdx = colWidths.length - 1;
+            const remaining = colBudget - currentUsedColWidth;
+            if (remaining > 0) {
+                const lastColWidth = colWidths[lastIdx] ?? 0;
+                colWidths[lastIdx] = lastColWidth + remaining;
+            }
         }
     }
 

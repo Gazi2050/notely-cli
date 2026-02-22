@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Text, useStdout } from 'ink';
 import { TextInput, Alert, Spinner } from '@inkjs/ui';
-import { CreateStep } from './types.js';
-import { saveNote, LIMITS } from './utils.js';
+import { CreateStep } from '../../types.js';
+import { saveNote, LIMITS } from '../../utils.js';
 
 export default function CreateAction() {
     const { stdout } = useStdout();

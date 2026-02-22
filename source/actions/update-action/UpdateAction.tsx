@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Box, Text, useStdout } from 'ink';
 import { TextInput, Alert, Spinner } from '@inkjs/ui';
-import { UpdateStep } from './types.js';
-import { findNoteById, updateNote } from './utils.js';
-import { LIMITS } from '../create-action/utils.js';
+import { UpdateStep } from '../../types.js';
+import { findNoteById, updateNote, LIMITS } from '../../utils.js';
 
 export default function UpdateAction() {
     const { stdout } = useStdout();

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Text, useStdout } from 'ink';
-import { TableProps } from './types.js';
+import { TableProps } from '../../types.js';
 import { generateTableString } from './utils.js';
 
 export default function Table({ data, columns }: TableProps) {

@@ -5,6 +5,7 @@ import Table from './components/table/Table.js';
 import CreateAction from './actions/create-action/CreateAction.js';
 import ReadAction from './actions/read-action/ReadAction.js';
 import UpdateAction from './actions/update-action/UpdateAction.js';
+import DeleteAction from './actions/delete-action/DeleteAction.js';
 
 interface AppProps {
 	flags: {
@@ -13,9 +14,10 @@ interface AppProps {
 		delete?: boolean;
 		read?: boolean;
 	};
+	input: string[];
 }
 
-export default function App({ flags }: AppProps) {
+export default function App({ flags, input }: AppProps) {
 	const { stdout } = useStdout();
 	const width = stdout?.columns || 80;
 
@@ -36,11 +38,15 @@ export default function App({ flags }: AppProps) {
 	}
 
 	if (flags.read) {
-		return <ReadAction />;
+		return <ReadAction id={input[0]} />;
 	}
 
 	if (flags.update) {
 		return <UpdateAction />;
+	}
+
+	if (flags.delete) {
+		return <DeleteAction id={input[0]} />;
 	}
 
 	return (

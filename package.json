@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"description": "Your minimal note-taking tool for the terminal.",
 	"author": "gazi2050",
-	"homepage": "https://packsmith.vercel.app",
+	"homepage": "https://github.com/Gazi2050/note-cli",
 	"repository": {
-		"url": "https://github.com/Gazi2050/PackSmith"
+		"url": "https://github.com/Gazi2050/note-cli"
 	},
 	"license": "MIT",
 	"bin": "dist/cli.js",

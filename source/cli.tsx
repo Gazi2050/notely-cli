@@ -14,10 +14,11 @@ const cli = meow(
 		--update, -u  Update an existing note
 		--delete, -d  Delete a note
 		--read,   -r  Read/List notes
+		--path,   -p  Show database location
 
 	Examples
 	  $ notely-cli --create
-	  $ notely-cli -c
+	  $ notely-cli -p
 	`,
 	{
 		importMeta: import.meta,
@@ -37,6 +38,10 @@ const cli = meow(
 			read: {
 				type: 'boolean',
 				alias: 'r',
+			},
+			path: {
+				type: 'boolean',
+				alias: 'p',
 			},
 		},
 	},

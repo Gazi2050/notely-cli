@@ -6,6 +6,7 @@ import CreateAction from './actions/create-action.js';
 import ReadAction from './actions/read-action.js';
 import UpdateAction from './actions/update-action.js';
 import DeleteAction from './actions/delete-action.js';
+import PathAction from './actions/path-action.js';
 
 type AppProps = {
 	readonly flags: {
@@ -13,6 +14,7 @@ type AppProps = {
 		update?: boolean;
 		delete?: boolean;
 		read?: boolean;
+		path?: boolean;
 	};
 	readonly input: string[];
 };
@@ -35,12 +37,14 @@ export default function App({flags, input}: AppProps) {
 		['--read', '-r', 'List / read notes'],
 		['--update', '-u', 'Update a note'],
 		['--delete', '-d', 'Delete a note'],
+		['--path', '-p', 'Show database info'],
 	];
 
 	if (flags.create) return <CreateAction />;
 	if (flags.read) return <ReadAction id={input[0]} />;
 	if (flags.update) return <UpdateAction />;
 	if (flags.delete) return <DeleteAction id={input[0]} />;
+	if (flags.path) return <PathAction />;
 
 	return (
 		<Box flexDirection="column" paddingY={1}>

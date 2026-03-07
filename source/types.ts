@@ -31,3 +31,7 @@ export type TableProps = {
 export type Data = {
 	notes: Note[];
 };
+
+export type Config = {
+	language: 'en' | 'am';
+};

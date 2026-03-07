@@ -4,12 +4,15 @@ import {Alert, Spinner} from '@inkjs/ui';
 import Table from '../components/table/table.js';
 import {fetchNotes, formatNoteDate, findNoteById} from '../utils.js';
 import {type Note} from '../types.js';
+import {useTranslation, type Language} from '../hooks/use-translation.js';
 
 type ReadActionProps = {
 	readonly id?: string;
+	readonly lang: Language;
 };
 
-export default function ReadAction({id}: ReadActionProps) {
+export default function ReadAction({id, lang}: ReadActionProps) {
+	const {t} = useTranslation(lang);
 	const [notes, setNotes] = useState<Note[]>([]);
 	const [selectedNote, setSelectedNote] = useState<Note | undefined>();
 	const [loading, setLoading] = useState(true);
@@ -41,11 +44,11 @@ export default function ReadAction({id}: ReadActionProps) {
 
 	const columns = useMemo(
 		() => [
-			{head: 'ID', index: 0, width: 15},
-			{head: 'Title', index: 1, width: 55},
-			{head: 'Created At', index: 2, width: 26},
+			{head: t('actions.read.id'), index: 0, width: 15},
+			{head: t('actions.read.title'), index: 1, width: 55},
+			{head: t('actions.read.created_at'), index: 2, width: 26},
 		],
-		[],
+		[t],
 	);
 
 	const rows = useMemo(() => {
@@ -59,7 +62,7 @@ export default function ReadAction({id}: ReadActionProps) {
 	if (loading) {
 		return (
 			<Box paddingY={1}>
-				<Spinner label="Loading notes..." />
+				<Spinner label={t('actions.read.loading')} />
 			</Box>
 		);
 	}
@@ -82,7 +85,7 @@ export default function ReadAction({id}: ReadActionProps) {
 					marginBottom={1}
 				>
 					<Text bold color="cyan">
-						✦ NOTE DETAIL
+						✦ {t('actions.read.detail_header')}
 					</Text>
 				</Box>
 
@@ -113,10 +116,10 @@ export default function ReadAction({id}: ReadActionProps) {
 
 					<Box marginTop={1} flexDirection="column">
 						<Text dimColor color="gray">
-							ID {selectedNote.id}
+							{t('actions.read.id')} {selectedNote.id}
 						</Text>
 						<Text dimColor color="gray">
-							Created {formatNoteDate(selectedNote.createdAt)}
+							{t('actions.read.created_at')} {formatNoteDate(selectedNote.createdAt)}
 						</Text>
 						{selectedNote.updatedAt && (
 							<Text dimColor color="gray">
@@ -139,15 +142,14 @@ export default function ReadAction({id}: ReadActionProps) {
 					marginBottom={1}
 				>
 					<Text bold color="cyan">
-						✦ NOTES
+						✦ {t('actions.read.header')}
 					</Text>
 				</Box>
 				<Box paddingX={1}>
-					<Text color="gray">No notes yet. </Text>
+					<Text color="gray">{t('actions.read.no_notes')} </Text>
 					<Text bold color="green">
 						notely-cli -c
 					</Text>
-					<Text color="gray"> to create one.</Text>
 				</Box>
 			</Box>
 		);
@@ -157,7 +159,7 @@ export default function ReadAction({id}: ReadActionProps) {
 		<Box flexDirection="column" paddingY={1}>
 			<Box borderStyle="round" borderColor="cyan" paddingX={1} marginBottom={1}>
 				<Text bold color="cyan">
-					✦ NOTES
+					✦ {t('actions.read.header')}
 				</Text>
 				<Text dimColor color="gray">
 					{' '}
@@ -172,7 +174,6 @@ export default function ReadAction({id}: ReadActionProps) {
 				<Text bold dimColor>
 					notely-cli -r {'<id>'}
 				</Text>
-				<Text dimColor> to view details</Text>
 			</Box>
 		</Box>
 	);

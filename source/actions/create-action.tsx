@@ -3,10 +3,16 @@ import {Box, Text, useStdout} from 'ink';
 import {TextInput, Alert, Spinner} from '@inkjs/ui';
 import {type CreateStep} from '../types.js';
 import {saveNote, limits} from '../utils.js';
+import {useTranslation, type Language} from '../hooks/use-translation.js';
 
-export default function CreateAction() {
+type CreateActionProps = {
+	readonly lang: Language;
+};
+
+export default function CreateAction({lang}: CreateActionProps) {
 	const {stdout} = useStdout();
 	const width = stdout?.columns || 80;
+	const {t} = useTranslation(lang);
 
 	const [step, setStep] = useState<CreateStep>('title');
 	const [title, setTitle] = useState('');
@@ -37,12 +43,12 @@ export default function CreateAction() {
 				marginBottom={1}
 			>
 				<Text bold color="green">
-					✦ NEW NOTE
+					✦ {t('actions.create.header')}
 				</Text>
 				{stepNumber && (
 					<Text dimColor color="gray">
 						{' '}
-						Step {stepNumber}/2
+						{t('actions.create.step')} {stepNumber}/2
 					</Text>
 				)}
 			</Box>
@@ -51,7 +57,7 @@ export default function CreateAction() {
 				<Box flexDirection="column">
 					<Box justifyContent="space-between">
 						<Text dimColor color="gray">
-							Enter a title for your note
+							{t('actions.create.title_label')}
 						</Text>
 						<Text
 							dimColor
@@ -66,7 +72,7 @@ export default function CreateAction() {
 						</Text>
 						<TextInput
 							key={resetKey}
-							placeholder="My note title..."
+							placeholder={t('actions.create.title_placeholder')}
 							defaultValue={title}
 							onChange={value => {
 								if (value.length <= limits.title) {
@@ -87,7 +93,7 @@ export default function CreateAction() {
 				<Box flexDirection="column">
 					<Box justifyContent="space-between">
 						<Text dimColor color="gray">
-							Write your note content
+							{t('actions.create.content_label')}
 						</Text>
 						<Text
 							dimColor
@@ -102,7 +108,7 @@ export default function CreateAction() {
 						</Text>
 						<TextInput
 							key={descResetKey}
-							placeholder="Start writing..."
+							placeholder={t('actions.create.content_placeholder')}
 							defaultValue={description}
 							onChange={value => {
 								if (value.length <= limits.description) {
@@ -121,14 +127,14 @@ export default function CreateAction() {
 
 			{step === 'saving' && (
 				<Box marginTop={1}>
-					<Spinner label="Saving note..." />
+					<Spinner label={t('actions.create.saving')} />
 				</Box>
 			)}
 
 			{step === 'success' && (
 				<Alert variant="success">
-					Note &quot;{title.length > 30 ? title.slice(0, 27) + '...' : title}
-					&quot; saved!
+					{t('actions.create.success')} &quot;{title.length > 30 ? title.slice(0, 27) + '...' : title}
+					&quot;!
 				</Alert>
 			)}
 

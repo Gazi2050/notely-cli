@@ -3,14 +3,17 @@ import {Box, Text} from 'ink';
 import {TextInput, Alert, Spinner} from '@inkjs/ui';
 import {deleteNoteById, deleteAllNotes, findNoteById} from '../utils.js';
 import {type Note} from '../types.js';
+import {useTranslation, type Language} from '../hooks/use-translation.js';
 
 type DeleteActionProps = {
 	readonly id?: string;
+	readonly lang: Language;
 };
 
 type DeleteStep = 'id_input' | 'confirm' | 'deleting' | 'success' | 'error';
 
-export default function DeleteAction({id: initialId}: DeleteActionProps) {
+export default function DeleteAction({id: initialId, lang}: DeleteActionProps) {
+	const {t} = useTranslation(lang);
 	const [step, setStep] = useState<DeleteStep>(
 		initialId ? 'confirm' : 'id_input',
 	);
@@ -77,21 +80,14 @@ export default function DeleteAction({id: initialId}: DeleteActionProps) {
 		<Box flexDirection="column" paddingY={1}>
 			<Box borderStyle="round" borderColor="red" paddingX={1} marginBottom={1}>
 				<Text bold color="red">
-					✦ DELETE NOTE
+					✦ {t('actions.delete.header')}
 				</Text>
 			</Box>
 
 			{step === 'id_input' && (
 				<Box flexDirection="column">
 					<Text dimColor color="gray">
-						Enter a note ID, or type{' '}
-					</Text>
-					<Text bold dimColor>
-						&quot;all&quot;
-					</Text>
-					<Text dimColor color="gray">
-						{' '}
-						to delete everything
+						{t('actions.delete.id_label')}
 					</Text>
 					<Box marginTop={1}>
 						<Text bold color="cyan">
@@ -150,7 +146,7 @@ export default function DeleteAction({id: initialId}: DeleteActionProps) {
 					) : (
 						<>
 							<Alert variant="warning">
-								Are you sure you want to delete this note?
+								{t('actions.delete.confirm_label')}
 							</Alert>
 							{note && (
 								<Box
@@ -191,11 +187,11 @@ export default function DeleteAction({id: initialId}: DeleteActionProps) {
 				</Box>
 			)}
 
-			{step === 'deleting' && <Spinner label="Deleting..." />}
+			{step === 'deleting' && <Spinner label={t('actions.delete.saving')} />}
 
 			{step === 'success' && (
 				<Alert variant="success">
-					{isDeleteAll ? 'All notes deleted.' : 'Note deleted successfully!'}
+					{t('actions.delete.success')}
 				</Alert>
 			)}
 

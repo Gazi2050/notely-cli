@@ -14,13 +14,14 @@ const cli = meow(
 		--update, -u  Update an existing note
 		--delete, -d  Delete a note
 		--read,   -r  Read/List notes
-		--path,   -p  Show database location
+		--path,   -p  Show database info
+		--lang,   -l  Set language (en, am)
 
-	Examples
-	  $ notely-cli --create
-	  $ notely-cli -p
-	`,
-	{
+		Examples
+		$ notely-cli --create
+		$ notely-cli -l am
+		`,
+		{
 		importMeta: import.meta,
 		flags: {
 			create: {
@@ -43,8 +44,13 @@ const cli = meow(
 				type: 'boolean',
 				alias: 'p',
 			},
+			lang: {
+				type: 'string',
+				alias: 'l',
+			},
 		},
-	},
-);
+		},
+		);
+
 
 render(<App flags={cli.flags} input={cli.input} />);

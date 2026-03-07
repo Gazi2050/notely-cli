@@ -3,10 +3,16 @@ import {Box, Text, useStdout} from 'ink';
 import {TextInput, Alert, Spinner} from '@inkjs/ui';
 import {type UpdateStep} from '../types.js';
 import {findNoteById, updateNote, limits} from '../utils.js';
+import {useTranslation, type Language} from '../hooks/use-translation.js';
 
-export default function UpdateAction() {
+type UpdateActionProps = {
+	readonly lang: Language;
+};
+
+export default function UpdateAction({lang}: UpdateActionProps) {
 	const {stdout} = useStdout();
 	const width = stdout?.columns || 80;
+	const {t} = useTranslation(lang);
 
 	const [step, setStep] = useState<UpdateStep>('id');
 	const [noteId, setNoteId] = useState('');
@@ -57,12 +63,12 @@ export default function UpdateAction() {
 				marginBottom={1}
 			>
 				<Text bold color="yellow">
-					✦ UPDATE NOTE
+					✦ {t('actions.update.header')}
 				</Text>
 				{stepNumber && (
 					<Text dimColor color="gray">
 						{' '}
-						Step {stepNumber}/3
+						{t('actions.create.step')} {stepNumber}/3
 					</Text>
 				)}
 			</Box>
@@ -70,7 +76,7 @@ export default function UpdateAction() {
 			{step === 'id' && (
 				<Box flexDirection="column">
 					<Text dimColor color="gray">
-						Enter the ID of the note to update
+						{t('actions.update.id_label')}
 					</Text>
 					<Box marginTop={1}>
 						<Text bold color="cyan">
@@ -93,7 +99,7 @@ export default function UpdateAction() {
 				<Box flexDirection="column">
 					<Box justifyContent="space-between">
 						<Text dimColor color="gray">
-							Update title (press Enter to keep current)
+							{t('actions.update.title_label')}
 						</Text>
 						<Text
 							dimColor
@@ -128,7 +134,7 @@ export default function UpdateAction() {
 				<Box flexDirection="column">
 					<Box justifyContent="space-between">
 						<Text dimColor color="gray">
-							Update content (press Enter to keep current)
+							{t('actions.update.content_label')}
 						</Text>
 						<Text
 							dimColor
@@ -161,12 +167,12 @@ export default function UpdateAction() {
 
 			{step === 'saving' && (
 				<Box marginTop={1}>
-					<Spinner label="Updating note..." />
+					<Spinner label={t('actions.update.saving')} />
 				</Box>
 			)}
 
 			{step === 'success' && (
-				<Alert variant="success">Note updated successfully!</Alert>
+				<Alert variant="success">{t('actions.update.success')}</Alert>
 			)}
 
 			{step === 'error' && (

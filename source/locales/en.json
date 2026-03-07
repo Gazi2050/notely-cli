@@ -1,0 +1,60 @@
+{
+	"common": {
+		"app_title": "NOTELY CLI",
+		"app_subtitle": "Your minimal note-taking tool for the terminal.",
+		"help_table": {
+			"flag": "Flag",
+			"shorthand": "Shorthand",
+			"description": "Description"
+		}
+	},
+	"actions": {
+		"create": {
+			"label": "Create a new note",
+			"header": "NEW NOTE",
+			"step": "Step",
+			"title_placeholder": "My note title...",
+			"title_label": "Enter a title for your note",
+			"content_placeholder": "Start writing...",
+			"content_label": "Write your note content",
+			"saving": "Saving note...",
+			"success": "Note saved!"
+		},
+		"read": {
+			"label": "List / read notes",
+			"header": "NOTES",
+			"detail_header": "NOTE DETAIL",
+			"no_notes": "No notes yet.",
+			"loading": "Loading notes...",
+			"id": "ID",
+			"title": "Title",
+			"created_at": "Created At"
+		},
+		"update": {
+			"label": "Update a note",
+			"header": "UPDATE NOTE",
+			"id_label": "Enter the ID of the note to update",
+			"title_label": "Update title (press Enter to keep current)",
+			"content_label": "Update content (press Enter to keep current)",
+			"saving": "Updating note...",
+			"success": "Note updated successfully!"
+		},
+		"delete": {
+			"label": "Delete a note",
+			"header": "DELETE NOTE",
+			"id_label": "Enter the ID of the note to delete",
+			"confirm_label": "Are you sure you want to delete this note? (y/n)",
+			"saving": "Deleting note...",
+			"success": "Note deleted successfully!"
+		},
+		"path": {
+			"label": "Show database info",
+			"header": "DATABASE INFO",
+			"location": "Location:",
+			"total_notes": "Total Notes:",
+			"file_size": "File Size:",
+			"last_updated": "Last Updated:",
+			"pro_tip": "Pro-tip: Backup this file to keep your notes safe!"
+		}
+	}
+}

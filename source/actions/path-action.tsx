@@ -3,10 +3,16 @@ import {Box, Text, useStdout} from 'ink';
 import {Spinner} from '@inkjs/ui';
 import fs from 'node:fs/promises';
 import {DB_PATH, getDb} from '../db/db.js';
+import {useTranslation, type Language} from '../hooks/use-translation.js';
 
-export default function PathAction() {
+type PathActionProps = {
+	readonly lang: Language;
+};
+
+export default function PathAction({lang}: PathActionProps) {
 	const {stdout} = useStdout();
 	const width = stdout?.columns || 80;
+	const {t} = useTranslation(lang);
 
 	const [loading, setLoading] = useState(true);
 	const [stats, setStats] = useState<{
@@ -45,7 +51,7 @@ export default function PathAction() {
 	if (loading) {
 		return (
 			<Box paddingY={1}>
-				<Spinner label="Gathering database stats..." />
+				<Spinner label={t('actions.path.loading') || 'Gathering database stats...'} />
 			</Box>
 		);
 	}
@@ -59,13 +65,13 @@ export default function PathAction() {
 				marginBottom={1}
 			>
 				<Text bold color="cyan">
-					✦ DATABASE INFO
+					✦ {t('actions.path.header')}
 				</Text>
 			</Box>
 
 			<Box paddingX={1} flexDirection="column">
 				<Box marginBottom={1}>
-					<Text color="gray">Location:</Text>
+					<Text color="gray">{t('actions.path.location')}</Text>
 					<Box marginLeft={1}>
 						<Text bold color="white">
 							{DB_PATH}
@@ -75,22 +81,22 @@ export default function PathAction() {
 
 				<Box flexDirection="column" borderStyle="single" borderColor="gray" paddingX={1} width={40}>
 					<Box justifyContent="space-between">
-						<Text color="gray">Total Notes:</Text>
+						<Text color="gray">{t('actions.path.total_notes')}</Text>
 						<Text bold color="green">{stats?.count}</Text>
 					</Box>
 					<Box justifyContent="space-between">
-						<Text color="gray">File Size:</Text>
+						<Text color="gray">{t('actions.path.file_size')}</Text>
 						<Text bold color="yellow">{stats?.size}</Text>
 					</Box>
 					<Box justifyContent="space-between">
-						<Text color="gray">Last Updated:</Text>
+						<Text color="gray">{t('actions.path.last_updated')}</Text>
 						<Text bold color="blue">{stats?.lastModified}</Text>
 					</Box>
 				</Box>
 
 				<Box marginTop={1}>
 					<Text dimColor color="gray">
-						Pro-tip: Backup this file to keep your notes safe!
+						{t('actions.path.pro_tip')}
 					</Text>
 				</Box>
 			</Box>
